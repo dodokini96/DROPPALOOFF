@@ -583,15 +583,19 @@
     border-top: 1px solid var(--border, rgba(255,255,255,.08)) !important;
   }
   .right-tabs { position: sticky; top: 52px; background: var(--bg, #0A0A0A); z-index: 5; }
-  /* la chat ha un'altezza comoda e scorre al suo interno */
-  .chat-section { display: block !important; height: auto !important; }
+  /* la chat ha un'altezza di lavoro generosa e scorre al suo interno */
+  .chat-section { flex-direction: column !important; height: 70vh !important; }
   .chat-messages {
+    flex: 1 !important;
     height: auto !important;
-    max-height: 50vh !important;
+    max-height: none !important;
+    min-height: 0 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
-  .chat-input-wrap { position: static !important; width: 100% !important; }
+  /* pannelli prodotti/offerte stessa altezza comoda */
+  .products-section, .bids-section { min-height: 60vh !important; }
+  .chat-input-wrap { position: sticky !important; bottom: 0 !important; width: 100% !important; background: var(--bg, #0A0A0A) !important; }
 
   /* ===== HEADER live: impilato e ordinato ===== */
   .nav { flex-wrap: wrap !important; height: auto !important; padding: 10px 14px !important; gap: 8px 10px !important; }
