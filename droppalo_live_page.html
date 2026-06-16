@@ -547,33 +547,52 @@
    MOBILE — Pagina Live (layout verticale semplice)
    ============================================ */
 @media (max-width: 768px) {
-  .nav { padding: 0 14px; }
-  .nav-links { display: none; }
+  /* ===== HEADER compatto ===== */
+  .nav { flex-wrap: wrap !important; height: auto !important; padding: 10px 14px !important; gap: 8px 10px !important; }
+  .nav-links { display: none !important; }
+  .nav-back { display: none !important; }
+  .nav-live-info { width: 100% !important; order: 3 !important; min-width: 0 !important; }
+  .nav-title { white-space: normal !important; font-size: 12px !important; }
+  .nav-seller-info { margin-left: auto !important; }
 
-  /* Niente più griglia ad altezze fisse: tutto scorre dall'alto in basso */
-  .main {
-    display: block !important;
-    height: auto !important;
-    min-height: 0 !important;
-  }
-  /* Video: proporzione fissa, sempre ben visibile in alto */
-  .left {
-    display: block !important;
-    max-height: none !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
+  /* La pagina scorre normalmente dall'alto in basso */
+  .main { display: block !important; height: auto !important; min-height: 0 !important; }
+  .left { display: block !important; max-height: none !important; height: auto !important; overflow: visible !important; }
+
+  /* VIDEO compatto in alto (stile Twitch) */
   .video-wrap {
     width: 100% !important;
-    aspect-ratio: 16 / 10 !important;
+    aspect-ratio: 16 / 9 !important;
     height: auto !important;
+    max-height: 32vh !important;
     min-height: 0 !important;
     flex: none !important;
   }
-  /* Barra asta sotto il video, a tutta larghezza */
-  .auction-bar { position: static !important; width: 100% !important; }
 
-  /* Colonna chat: sotto, in flusso normale, altezza naturale */
+  /* ===== BARRA ASTA compatta sotto il video ===== */
+  .auction-bar {
+    position: static !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+  }
+  .product-preview { width: 100% !important; }
+  .price-section {
+    width: 100% !important;
+    justify-content: space-around !important;
+    gap: 12px !important;
+    padding: 10px 0 !important;
+    border-top: 1px solid var(--gray-700, #333) !important;
+    border-bottom: 1px solid var(--gray-700, #333) !important;
+  }
+  .bid-section { width: 100% !important; }
+  .bid-input-row { width: 100% !important; }
+  .bid-input { flex: 1 !important; }
+  .quick-bids { flex-wrap: wrap !important; justify-content: center !important; }
+
+  /* ===== ZONA CHAT/PRODOTTI/OFFERTE (stile Twitch) ===== */
   .right {
     display: block !important;
     width: 100% !important;
@@ -582,9 +601,23 @@
     border-left: none !important;
     border-top: 1px solid var(--border, rgba(255,255,255,.08)) !important;
   }
-  .right-tabs { position: sticky; top: 52px; background: var(--bg, #0A0A0A); z-index: 5; }
-  /* la chat ha un'altezza di lavoro generosa e scorre al suo interno */
-  .chat-section { flex-direction: column !important; height: 70vh !important; }
+  /* i tab restano sempre visibili in cima alla zona chat */
+  .right-tabs { position: sticky !important; top: 0 !important; background: var(--bg, #0A0A0A) !important; z-index: 5 !important; }
+
+  /* TUTTI i pannelli (chat, prodotti, offerte) hanno la stessa altezza garantita e scrollano */
+  .chat-section,
+  .products-section,
+  .bids-section {
+    height: 65vh !important;
+    min-height: 360px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* il pannello attivo resta visibile a tutta altezza (vince sullo stile inline) */
+  [data-panel].active { display: block !important; }
+  .chat-section.active { display: flex !important; }
+  /* il pannello chat usa flex per tenere l'input in fondo */
+  .chat-section { display: flex; flex-direction: column !important; }
   .chat-messages {
     flex: 1 !important;
     height: auto !important;
@@ -593,39 +626,12 @@
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
-  /* pannelli prodotti/offerte stessa altezza comoda */
-  .products-section, .bids-section { min-height: 60vh !important; }
-  .chat-input-wrap { position: sticky !important; bottom: 0 !important; width: 100% !important; background: var(--bg, #0A0A0A) !important; }
-
-  /* ===== HEADER live: impilato e ordinato ===== */
-  .nav { flex-wrap: wrap !important; height: auto !important; padding: 10px 14px !important; gap: 8px 10px !important; }
-  .nav-back { display: none !important; }  /* "torna alle live" nascosto su mobile */
-  .nav-live-info { width: 100% !important; order: 3 !important; min-width: 0 !important; }
-  .nav-title { white-space: normal !important; font-size: 12px !important; }
-  .nav-seller-info { margin-left: auto !important; }
-
-  /* ===== BARRA ASTA: da orizzontale a verticale impilata ===== */
-  .auction-bar {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 14px !important;
-    padding: 14px !important;
-  }
-  .product-preview { width: 100% !important; }
-  /* prezzo + timer affiancati su una riga propria */
-  .price-section {
+  .chat-input-wrap {
+    position: sticky !important;
+    bottom: 0 !important;
     width: 100% !important;
-    justify-content: space-around !important;
-    gap: 12px !important;
-    padding: 12px 0 !important;
-    border-top: 1px solid var(--gray-700, #333) !important;
-    border-bottom: 1px solid var(--gray-700, #333) !important;
+    background: var(--bg, #0A0A0A) !important;
   }
-  /* sezione offerta: input e pulsanti a tutta larghezza */
-  .bid-section { width: 100% !important; }
-  .bid-input-row { width: 100% !important; }
-  .bid-input { flex: 1 !important; }
-  .quick-bids { flex-wrap: wrap !important; justify-content: center !important; }
 }
 </style>
 </head>
@@ -751,7 +757,7 @@
     </div>
 
     <!-- CHAT -->
-    <div class="chat-section" data-panel="chat" style="display:flex; flex-direction:column;">
+    <div class="chat-section active" data-panel="chat" style="display:flex; flex-direction:column;">
       <div class="chat-messages" id="chat-messages">
 
         <div class="msg msg-system">
