@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droppalo — Centro Assistenza</title>
+<style>
+:root{
+  --or:#FF4500;--or2:#FF6A00;--or-pale:rgba(255,69,0,.12);--or-border:rgba(255,69,0,.3);
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#191919;--bg4:#222222;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--border3:rgba(255,255,255,.22);
+  --t1:#FFFFFF;--t2:rgba(255,255,255,.65);--t3:rgba(255,255,255,.35);
+  --green:#34C759;--blue:#0A84FF;--purple:#5856D6;
+  --r:8px;--rm:12px;--rl:16px;--rp:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit;border:none}input{font-family:inherit}
+
+.nav{position:sticky;top:0;z-index:100;height:60px;background:rgba(10,10,10,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-right:24px}
+.logo-box{width:34px;height:34px;border-radius:9px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:13px;color:var(--t3);padding:6px 13px;border-radius:var(--r)}
+.nav-links a:hover{background:var(--bg4);color:var(--t1)}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn-ghost{height:36px;padding:0 16px;border-radius:var(--rp);background:transparent;border:1px solid var(--border2);color:var(--t1);font-size:13px;font-weight:500}
+.btn-primary{height:36px;padding:0 18px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:13px;font-weight:700}
+
+/* HERO + SEARCH */
+.hero{position:relative;padding:60px 28px 50px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(255,69,0,.15) 0%,transparent 65%)}
+.hero-content{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.hero h1{font-size:42px;font-weight:900;letter-spacing:-1.5px;margin-bottom:14px}
+.hero p{font-size:17px;color:var(--t2);margin-bottom:28px}
+.help-search{position:relative;max-width:520px;margin:0 auto}
+.help-search input{width:100%;height:56px;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--rp);color:var(--t1);font-size:15px;padding:0 20px 0 52px;outline:none;transition:.15s}
+.help-search input:focus{border-color:var(--or);background:var(--bg3)}
+.help-search input::placeholder{color:var(--t3)}
+.help-search .si{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:18px}
+
+.container{max-width:920px;margin:0 auto;padding:20px 28px 60px}
+
+/* CATEGORIES */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:44px}
+.cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:22px;cursor:pointer;transition:.2s}
+.cat-card:hover{border-color:var(--or-border);transform:translateY(-2px)}
+.cat-icon{width:48px;height:48px;border-radius:12px;background:var(--or-pale);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px}
+.cat-name{font-size:16px;font-weight:700;margin-bottom:5px}
+.cat-count{font-size:12px;color:var(--t3)}
+
+/* FAQ */
+.section-title{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:20px}
+.faq-list{display:flex;flex-direction:column;gap:10px;margin-bottom:44px}
+.faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rm);overflow:hidden;transition:.15s}
+.faq-item:hover{border-color:var(--border2)}
+.faq-q{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:15px;font-weight:600;gap:14px}
+.faq-icon{font-size:22px;color:var(--or);transition:.2s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:.3s;color:var(--t2);font-size:14px;line-height:1.7}
+.faq-item.open .faq-a{padding:0 20px 18px;max-height:300px}
+
+/* CONTACT */
+.contact{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:36px;text-align:center}
+.contact h2{font-size:24px;font-weight:800;margin-bottom:10px}
+.contact p{font-size:15px;color:var(--t2);margin-bottom:24px}
+.contact-options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.contact-opt{padding:22px;border-radius:var(--rm);background:var(--bg3);cursor:pointer;transition:.15s}
+.contact-opt:hover{background:var(--bg4)}
+.contact-opt-icon{font-size:30px;margin-bottom:10px}
+.contact-opt-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.contact-opt-desc{font-size:12px;color:var(--t3)}
+
+.footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-size:12px;color:var(--t3);margin-top:44px}
+
+@media(max-width:760px){.cat-grid,.contact-options{grid-template-columns:1fr}.hero h1{font-size:32px}}
+
+
+@media(max-width:768px){
+  .nav{padding:0 14px !important}
+  .nav-links{display:none}
+  .nav-search{display:none}
+}
+@media(max-width:768px){[class*='grid']{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><img class="logo-box" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAIAAADajyQQAAAACXBIWXMAAAsTAAALEwEAmpwYAAAX7klEQVR4nOV7e4xc53Xfd8757r3z2uXSlCw5tVxblmhJpCSUtS2TlEjuk0vxsTvv9+zM7IOk3aYNYBQGaiNoAbdpjDSomxQJEDdJmyKFDaf9o0iDxk3QGGhiyc4fLVK7thOktmzLErk7r92Zufe79yvOd2eWS5miuCvaLtDBwcXM3dl772/OOb/zO+e7V8RufyGi+Mm+AODtH4SI4vH4XiDipw7svrzoYMBACLzfBmP76QCD+3fuN3shCDIGPzFgCOYl8BEHn01YT0flsag8FqFjEToekc/E5DNx+Wyc3zwdlceNPR0L91vPxEfvn46aPbHdj3Q8Ssci8lGbjki0gN4IUoAACE/9YwEG5rB/IyI/92TslXOTrfn41kzk9bOR1087r52ybzzvbJ11Wuci7eloazqyec4Z2bS9Ne20ZpzWdGTrrHPzrHPzjL111tk657TOOZtnnRtneM+Nc5Hvn41941Tsyx+M/s7TzsffGz1zxJmywlMjAkoCxH34kN4SGBGB+cEE0MO2/MqHIvqcVNMQzIGeF7ydAT0j2KZxZDNCzwo9C2xzYN4LPYNs06jP3bJgemR8kGmhp0HPk74g9cWo92LsW9MTv3Z8YvZwxEbOACmQ8P4DE0KIX3giri9Hd86hexbdc+hNo5ohNRsaerPCmxXurPDmQM2BPw9qHtw5dGchNM+YmgU1MzJ3RoQ73TkczoE7J9w5/vfBIqpF1BdBX8adi5E/OhktPuI4xFFKwPF5P0NRCvjyqYR+kdx5VDPoT0Mwgz4DQzVHPhv4c+zJYB53LdxpDM13Rsb/ZWy0Zx79BVQLqM5jsID+AqjzwrsIwyX0UqDzpFajf5KZXHhkgiMThfVW1EL3DixK9NKpiF4QwzlUfJV8raPrMxe3F88tVLOC0fJH8uel+T69AaHHO4GxnSe1SOoCei+CdxG8JfAy4BVxuCK9VdB/Lz78+NRnz068g10n6a5cQvcOLIL40smYXiBvHv15vg4Vhtz4En8UWIhNzYoQWDAv90K63dhjDOwCeZfQWyI/Jb2sVCX06sJbI2+DBtekdx30z1pfujLx+IQdsrS4Dx5DfPl0XF+gsbveaHtiby8w441xKAbz0rhu9wjE3l6QalF6F9C/gP5F8K6gSpNfIFWVfkN666TWhb8u/DWhVmGnifo6fLM6eeahKCfIm4DbH7Cvno7rRfLGF/qGRNpFchtas1WzIkynEFiwMP5HBklqgbxF8F4U/mUMlkllUBVQVVHVSTVJraO/AYyKgQlvFQeMDW9sHJp/d1QIlEhvF9hLp2L6PDKwXUi30cPY3kgbI+eMQxHHBEP+ArAtonoRvMvCT1GQo6BEQQ1VE7xVodbAX0N/A9VVUFfBv4rBOnlrtLOK+jr9oHH4xBFHiBFpvw2PnYqxx+7AeGGkvcFuUSUnJOfYKDOHs2IYMvt58BfBu4z+Zekn0c+BKoFXA9VAtYqK8aC/QQxsg+H5V6XasAOD1m2Qvir+R27qZ2IhNjwoeRB+7UeAMX/MCpN1huIMy425xKTT7nfmhTqP3qLjL5K+YOk5m9N1gYYXLXUZ1SVQKfBK4NXRbaLXRH9N+hvSv8amNigYm7su1Sr5a1KtycEq6r9jfeH8EUuAZBEh4WCsyMDOozvOqFEczt+qUXuBjbiOGZ+BeQs4mJd6QfQuR3/xicjcA84/Oep0Z+XwReFdIS8r/CJwUq1KhrQmg3VrF4y/B5jasNS6Faxb7gb6dRw0QF+PXHsyLgTae4rb/kNxDGycSEz9iivbnUicSxZ6rLyEx6mFrfOx8rsTRkDwNXzmqYTOyGFOuFX2ld8wbGG84a9b/joFu7ZB/jqb2uA/BeuWWrXcVfBWKFjD71YTjyY4IHeF8j7pnkPRkMfYRXctTSy1vDmh5tGbt/QCbM45yXcyR1uICeIrSD3i6Jo1rAhVEWpFcGo1Sa0ytlt+G1u4x1/Hka3xN4MGDFdIX3d++fmEEGCOej+A3d28efDmyJ0hfV7cmIufZwYTEolPz4eF33ghrptyWEfVAL8JPicP549/N2DEPMlG/ioFTfL5F5E3atEnD1lhp3P/gDFP3GYjf87BYJb0efzhhclLD0aFkA6CBQSAMaJfe+GQ/mg02DC/PWNg9vPXUb0ZpHD/mvSbxLbKppukGjisor4a/afPxUKVfCBg51mt39Fjt4DNkbuAas4azqFegFdnEvMPhCoBEQSiFAKeeSD2m7NTn3w68tmT0dfLtmqAWxfDDdvjABP+GterENIImIHB1rR2LWjKoEF+nVQNdQO/kYu905EhNJLW7bjuyoqGPMi9rUzdSjMV8uQC+QuWP4+DBdAzzl9ORz7yDuLox5H4YWiCTNPIHaQQNPtw5LXmhL7mDJq227T9VYNqYwzMoFJNrmwhMNWQqsFqKzBbvy6DKrgVodcm8u+Pm85NSin3UcdGkmqsaBlSaByN5HGlAp+LlRjOkV6S31mafG6K456QG/zRy+BDTnTLIrJMl3XxPdHWtUOqSW4NVBOCdWQaNPkWAtu1oMlIjNEtq9GwgnrN/jcvMDAUaO2rjn311AiYcdEol7xZ9Azpe4vgXwDvRXQvoS6Ib+cPffCd8VCn/sgQiN3FTTmjBOIv4PJ7I9trEeaGVdTM6SNuDNYsf1X6TcmE2SS1QqpG/oqxOoVO81ZoUEVdE/9zKfKAxb+UJSl2AOWxpyKjZ8jDFGtUl9EtWfqa878L8eNTzIF36Xb3DmekIcmVo5Hh302odeJgC+lhzfLXbX/VCkzgcQWvSX9lbHXprzBUt4puBYYl0atGTj7I57Wt/YTibcDCccAc+CzVpVpElUa3inoV/ld58onDEROB99LFj8IzxNZ8KupejXhNdNftYMPyTSHmjNqNul1UK1LVpFvBYZWGFRqWsV8EXbeuHeXgd2z7QFoxlBrzMliQLAUvAneEDcO8G7GL7xlVYeBB6D2OIoE4JjmK/sHfntQ/N+luGN5vIldtxrNrISR2nVeVboVRDcpyWJL9Ium6/JcfjgiBzr17LIr4tdOmbZkRLP8WSC1Kf9H0uU0+t1tDtUKvVWNHuVBCFHnmOWlLmyzTWNzThMnIWPj0ybj+WEw1xLAuByu2GhMgJ9gKeTXuALwxMLdCbhndEvYLUlfpP56JgmBa3I9WfD7sx7jdYPm3KFSBE9ptisDQ1E7N1k3rUycmQiccS1gvpQ595kMxEvIeh4Ks9hBslH94Oa5XWWHpdenX0V+RQY3ZT9XIrYAxHKGq0KAE/SIDU2X48vloFBBpP8C+cjqqF0HxCAm9y6gq5DVAVYWqQlBDv05eg4umt574ndnYz3/I/nomqpv4rWz0kOQYe0tk4aDZMhW88YSjPxZ5KRn70mK004j7dfQqqBgP7UIaltEY9Yu4U8DtnOwX8C8uOYcsKVAm9tNBR/WidOfRvSL8qqUaFNQxMKEf1EGxCVU3E6WPSn3dUQ0xqIpuM1p/nHkfDb+/pdPMlBs++GDkF05PHbI4qlcei+zUY8OScEucUW6FOAg5r2hQxH4Re0Xq5rGblzt5+Ovl6MM2D1f3AexrpxL6Ag2XKeAM5ozyGyxD2Rro18FvoG5i0CB3BdyaYHZucAnqN6KF90dZ6JiLvqvXQr+x+go1ChBaAv/0UlTXcVi2DWdYoaMGhjB2itgrUK9AnTz1C+J76fgjzn6AxZBeOhnVGfCq7CIzaZGqabFUM7XSr2PAwBhk0CTdQK9Owxr1K6DX7L//TIzLJje5b8EirPT4O0QIklj7Peg438xN6KblVi3mdxOB/RJtF2WvQN3Q8miAwffSsf0BiyC+PB/VDelVIKgRR2DdwFuRoe0C8xv8xjA1u8tbi3zsSdMsoUCzYrMHwh1Q8d9NmUBEm1MOf/1UNCjZ/SK5ZRpW5LCMgxJuF6mXp15e9gqS47CAnYLs5+GV5H6BEX11Oaab5FWBOWrFYKuhV0PPgNTNkQVN8BtiUMdglYZXY1efiu0dJAHw8gICvClPGujSqC0H4bdfmNI1Zzsr+nkaFq1hWQ5KIVvQTp5tm7MLenls5bGfFf9nKfqwQ/sgjwjRy8m4XuMyYuoj+DU0igZDC93FwFalt2rpVWg3Y7lHTWqNYYUOAbA5i+4wNRtpZOIlI8tB+eunErpi7xRhUKR+HndytJ2H7TxzYIhqJ0+9HHaMtXI4yMHXL0WOWLhPYKm4XpfeCrIMrTEfGoNgBfwVGKXWKnkNW1+1b1yfWn4fkyFfpXGOmXPAwxH5b89NvfDguNsNOf7Wup4ZNYE1QdZvnY7rgr1VEP0CGWC0k8PtHG3naCcv+wW2HY5G6uSoncVWhoF9dTEySYhk3bukopeXE3oV2WNG1wRhdtUpYMnDaFXd8hqo153XVw+9aISVHBO8WdrCKYn/aT6ur1rfzE1++EgMBRHPKcKZIK8QmfikCaTffSGhy9ROix32gxxFHQPbNdrOyV6WelnqZmUnQ600qhz90bRtC5T3XqAjhC8vT7BDGBhrtqBu+XUrbPUM+7PEDtbkd6vRc++KCAG2aZlH4QUiAvD5c3G9KvtlS6/L76wc/rPk4bWjUcMTjE2aJmaC5L87HddF2U6LXha3s9AzSMLtLrxejrpZ6qShk8ZumroZ2c6QLlq//RGjVPfVaL68FALDkccYVQiM/CoMqqDXrW8XYie4cWBFyzULhMXFSNiInzsb03VrWBCqDIMyejWhr9Ivn4yjQCKyGFVkSsr/cCamKvJmFrczDKyXw24Wdh1lgFEvC90MdtJ7LEPtNOki/cOnOf5tax+hiC9fSegmulUmDyPb0K+Z8tWUw4alN6yv5+LHDjmC11TDmQpTH49uAH5r+rD+aGJYE14FVEl4BQiq4iuXo1M2EmKEuMWekvTvT8eDHPuhl6NeniGFFqaWMWS0WexksJ0CY9hNy26G2kkY5K3kz5i2ZX8eu5Jgj1VBVdE3pqqiX0PuXq/Lv8hOHZvkJs/isAp7ZI4wFPgrJxP6akzVbdPYs7D0yqCr4ssLMRQ287+QhyV94UzCT8t2UvSywBGYHXmpF6YTGxmceLu7qJuS3TTtpMUrS/bjCQZmSToIMMP4oLiCwaAsdRP/+NLEu2Os6yzm9pHkNeMb+GcnIrrCERhUTE1fMT9KmSf1bjX+qWciDznWsQn5xVMRnZXdlNjOQC8juhkxisD8GFWWGE8GOK9S2E5iN4XdFBnDdpK8DP7nsxEzwSe5L2AvXYrr5kgicl9UJ86rBv3BfOJBJxzaAApJpsSG85vPfHhCN5xBQaiiUGXhl0CxSEdVQr+IbhG9ivNKJraZtgcZ6l6BXhJ7KdHJinYWOhnsGL9xWGbYS+0MdkzsdVKykyTzZeqxx7CVRJW1PvEUMwfyRexrSnU5oRvo1tBliSgHDVtfo9+bTUxJe+94mSdQpnb94xNxfTXh1axR3FbAL4FfQlUmthK6JRgUwS+IYV5sMwFiOy26y9RZBpUFXZG6avkluZXBVtLqpqiTZiTd9AhMaJ0UtZLUSdJWKv6cGTbjfhfX/3xpUtfJK4O7Inm8cS3yhfnJCbKABeuoChtNzhH4qWcdXZFeHvwSBWVOS1VBAwxCYF6J3BIOC7gz4gPOq50s7WSFyjl/ODPxyePRjx9P/O6Z+GYy3kpBO4k7KdzOyO2MDIG1l0VrWbSXxNYSeVn7v83Ebb6RhwvjvtbH6GtLE7oGbkEMi6SbzudOR6M8qggV+8hfpnDBJ5+N6rWIx/Em/JIISuCVhVsSux7zShyH3E0V0EgKVkaMLSf9ivOLfytm2k2+14jXLt6T2MpNuFnRSVFn7Cj2VRI6SWilsL0EXsFuPMYlkUxm01uGIt/AMlb3//1iVNdgJwe6an32uQkCC5An8aEUMhHI73/2iYhXd/yycCvIFFqGoGSmPWX0ja/YUUUYFMQgj4MCDQrWTl5u52Q3S24Bvjg9yVQKZCEyEZkV5n/0dMLLOzcvU3sJ2klop0QnDV1TmrcyVj8NL81FuHEetwz7AOYA/Xk6rq9LvR75pQ/yQpsFt/JqrAlp44moWol5RVBF4ZW5n/crGAIbRWCZhsZXgwIMQnflmfE6aS5KQdlafTwccpk2h/scPvgzh+h7F63NJegsMxN20thOjWxzCQZZe8MMt3dv/rjXUAy//vETsb8qTn3yRMIMqBFIjlTeeCGv+j7HrcZVjcNPlcErGwIce2wcgTQsykFRDgrU59ZDdvPsK7YMBrVY8X2xvfc5hNv3Re1XLkd2Mkz0nF0pbC3j1hLeuIL9NP7pXGKCTI0/wPqYOQdNSqNZmc+lOQ4nVxiB6fdGulUnKAi3BDx4qaJfAVVGVQJehi1imFdDBmb1i1aozU0EsvVyRsUW7Z/7AGsiJyyCowm5mH7QGmSdXpILXScJbUZFrWWrc4V6meild3F23VqB3j+wMORuNcF8YuO0uYeczeKkLpBXFMY50q9IVUa+t6FEfhH9InhFGBY4qRhYwdrOW2HZ5TjMct9xMwnbSfEni7EjthWOBsYdG/7Gc7F+2tq8Aq0l0VqC1hVoX6HXU0IVrH9hpn3IMQNv6w7TvS8zu8XnjlivZmOaB0YUBp5fotBUSaqS9EqSb4liVJKbKxOB3NXvAdYxHru5jG7W/r3n44/H7bCFeZdDnz4R3Uob5riC7WUwRjeWyc/gf52NM2eAmc6O7sDdJ7AfvcEz/MNjcesbyUldxkFRuBURFNhjQZGFdsCVSo6sKIdF4ggsyhFh3O4xAww2k3QjyUr3r67EPn/a+fxJ69tXoqog2yliDbVM3SR0uSJbgyx9/cLE0QRrA14lvX1GdMCbnQ1XIQmKEP6XuSO6QoMMqAJqI5T8cfiFeWVSC5gJC9gvUJ+nf0zuIzyZcDtS652UaGdwM43tjNjJwiAjtpO0uSzbKbGVglZStJJ4cxn6afmXF6c+dNjouBGBwX25ixvCKvCJ4zG94vTzoAqsSEwujUwVGKpXkG6Bhnkc5HE0tMjKXnbsqAwTd9dsjUE7Da00bKXgxrJ4bQleW4KtZWwluZvspHErjVvL6Ofp5YvxE1M2j+jf5E7hAwIjM/c8dti6mYoGOegXyC8yKrUHmPlIw7w0Rv0c7WTljoHUDfv5jOl8jTjqJFmet3k7stYy3kzi5nh/KwWbrDOELth/MD35NxPcoY8Vz52u8IChyGxl/evTcb1CblqonHDzoPKo8uAX0C+EIMljX8lBTvYZEu1wUyx7GeqmMdx209gxysgggZaB1DEWgmnxfrm5RFtLYpiFHyYjP39sIsaNg1nUFruZfj+Amc/waNz6QSaui0IVRFDAII9+Hvw8BAYeB2GevJwcZmU/Q/2M3MmEwGg7bSTsyFFclDpJyQU3yYq2lYRWUm4a0uMgXGZFwg1Owfn9c7GPPMDriQisUO+I520BM8mFG0d5eDpgR7HHQg70i+SXJKPK4TADwzQOMzTI4CCL/SzuZHA7hb0kdZPYDVupFHaT1FlmBdhahq1lsbUkblzB15doM4mtNLppurEU+f0z8dQj0QiXFnaUJW4TGffPY+aIv/n8pN6IDwsMbJAVwwwEBeIOqoK6AEEOVEaoNPgZ0lnUOaGy6KXJTeEgif0UDlI0SFM/DdvL0FvibX9ZeEnhp1FnSOdlOxv5ynzs08ciJ6bManl4972ZH9/LEikd9KEd/NJ0TNfQK5FXlqoEukRuVt7I2K9m7R+mrNfT9o2M/XrG/mHGeTXt/CDtfD9pfz/pvJpyXk1H+GM68r3lyHfZnO8s2X+9ZH3rYuTPZmNfOGX/82ej1x9zTh6xJ8a32XNt2ecjSnQwYFLAHy9EdBXcAgYrsteM/+pz0XPvtJ6Iw6MJ6/0JeTQhPzBpfWDSemzSejRBoT2WoMcn6OgkPT5Jj03Q+xNsjyX4/Xvj8iFbxm+dazQL5/HFgR5xof1pxXDpyiyHfHE2pqucS99OR2cftscRuq9nsu5wyeZuSr7NF41Y231Uab8PldGByeMTxxN6zd4qRGYfGt35wO2TWbEzYzeWA2zmwYZwad18NH8a7Rx/x0gZ5HFwKGRDELtLhOMFjf08t0MHJQ/5aJzU2qF/dXZCCOvWxGPPGsMdz3fXP73Fpf/YgQn+MfkE156ceuoduzeq3Icny/Z16Xc5iDgIsPHvaookEK+iIC+p/tifl/sJPqMJ/29h+Sk9fHpfwuzeX/T/D7D/C/FXgtiv8kI6AAAAAElFTkSuQmCC" alt="Droppalo">droppalo</div>
+  <div class="nav-links"><a href="#">Home</a><a href="#">Esplora</a><a href="#">Assistenza</a></div>
+  <div class="nav-right"><button class="btn-ghost">Accedi</button><button class="btn-primary">Vendi live →</button></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Come possiamo aiutarti?</h1>
+    <p>Cerca tra le domande frequenti o contatta il nostro supporto</p>
+    <div class="help-search">
+      <span class="si">🔍</span>
+      <input type="text" placeholder="Cerca una domanda... es. 'come faccio un'offerta'">
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- CATEGORIES -->
+  <div class="cat-grid">
+    <div class="cat-card"><div class="cat-icon">🛍️</div><div class="cat-name">Comprare</div><div class="cat-count">12 articoli</div></div>
+    <div class="cat-card"><div class="cat-icon">🎥</div><div class="cat-name">Vendere</div><div class="cat-count">18 articoli</div></div>
+    <div class="cat-card"><div class="cat-icon">💳</div><div class="cat-name">Pagamenti</div><div class="cat-count">9 articoli</div></div>
+    <div class="cat-card"><div class="cat-icon">📦</div><div class="cat-name">Spedizioni</div><div class="cat-count">11 articoli</div></div>
+    <div class="cat-card"><div class="cat-icon">↩️</div><div class="cat-name">Resi e rimborsi</div><div class="cat-count">7 articoli</div></div>
+    <div class="cat-card"><div class="cat-icon">⚙️</div><div class="cat-name">Account</div><div class="cat-count">10 articoli</div></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-title">Domande frequenti</div>
+  <div class="faq-list">
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Come faccio un'offerta in un'asta live?<span class="faq-icon">+</span></div><div class="faq-a">Durante una live, inserisci l'importo della tua offerta nell'apposito campo (o usa i pulsanti rapidi) e tocca "Fai offerta". Vedrai subito se sei in testa. Quando l'asta termina, se sei il miglior offerente vinci il prodotto e procedi al pagamento.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Cosa succede se vinco un'asta?<span class="faq-icon">+</span></div><div class="faq-a">Ricevi una notifica di vittoria e hai un tempo limitato per completare il pagamento. Una volta pagato, il venditore prepara la spedizione e ricevi il tracking. Il pagamento è protetto fino alla conferma di ricezione.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">I miei pagamenti sono sicuri?<span class="faq-icon">+</span></div><div class="faq-a">Assolutamente. Tutti i pagamenti sono elaborati da Stripe con crittografia di livello bancario. I tuoi dati di pagamento non vengono mai memorizzati sui nostri server, e i fondi vengono rilasciati al venditore solo dopo la conferma di consegna.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Posso restituire un prodotto?<span class="faq-icon">+</span></div><div class="faq-a">Sì. Hai diritto di recesso entro 14 giorni dalla ricezione, secondo il Codice del Consumo italiano. Se il prodotto non corrisponde alla descrizione, sei coperto dalla garanzia Droppalo e puoi richiedere un rimborso completo.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Quanto costano le spedizioni?<span class="faq-icon">+</span></div><div class="faq-a">Il costo di spedizione è indicato chiaramente in ogni prodotto prima dell'acquisto. Varia in base al venditore e al metodo scelto (standard o express). Alcuni seller offrono spedizione gratuita o combinata su più acquisti.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Come divento venditore?<span class="faq-icon">+</span></div><div class="faq-a">Vai alla pagina "Diventa seller", compila il form e verifica la tua identità. L'approvazione richiede fino a 48 ore. Una volta approvato puoi aggiungere prodotti e iniziare a fare live. L'iscrizione è gratuita.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Come contatto un venditore?<span class="faq-icon">+</span></div><div class="faq-a">Puoi scrivere nella chat durante le sue live, oppure usare il pulsante "Messaggio" sul suo profilo pubblico per una conversazione privata.</div></div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <h2>Non hai trovato la risposta?</h2>
+    <p>Il nostro team di supporto è qui per aiutarti</p>
+    <div class="contact-options">
+      <div class="contact-opt"><div class="contact-opt-icon">💬</div><div class="contact-opt-name">Chat dal vivo</div><div class="contact-opt-desc">Risposta in pochi minuti</div></div>
+      <div class="contact-opt"><div class="contact-opt-icon">✉️</div><div class="contact-opt-name">Email</div><div class="contact-opt-desc">supporto@droppalo.it</div></div>
+      <div class="contact-opt"><div class="contact-opt-icon">📋</div><div class="contact-opt-name">Apri un ticket</div><div class="contact-opt-desc">Per richieste complesse</div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">© 2025 Droppalo S.r.l. — P.IVA 12345678901 — 🇮🇹 Made in Italy</footer>
+
+</body>
+</html>

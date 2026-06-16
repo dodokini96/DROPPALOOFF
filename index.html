@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droppalo — Indice del progetto</title>
+<style>
+:root{
+  --or:#FF4500;--or2:#FF6A00;--or-pale:rgba(255,69,0,.12);--or-border:rgba(255,69,0,.3);
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#191919;--bg4:#222222;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
+  --t1:#FFFFFF;--t2:rgba(255,255,255,.65);--t3:rgba(255,255,255,.35);
+  --green:#34C759;--blue:#0A84FF;--purple:#5856D6;--amber:#FFB800;
+  --r:8px;--rm:12px;--rl:16px;--rp:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5}
+a{text-decoration:none;color:inherit}
+
+.header{position:relative;padding:48px 28px 36px;text-align:center;overflow:hidden;border-bottom:1px solid var(--border)}
+.header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 30%,rgba(255,69,0,.15) 0%,transparent 65%)}
+.header-content{position:relative;z-index:1}
+.logo{display:inline-flex;align-items:center;gap:11px;font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:14px}
+.logo-box{width:48px;height:48px;border-radius:13px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff}
+.header h1{font-size:18px;font-weight:600;color:var(--t2);margin-bottom:8px}
+.header-badge{display:inline-flex;align-items:center;gap:7px;background:var(--or-pale);border:1px solid var(--or-border);color:#FF7A40;font-size:12px;font-weight:600;padding:6px 16px;border-radius:var(--rp);margin-top:8px}
+
+.container{max-width:1100px;margin:0 auto;padding:36px 28px 60px}
+
+/* STATS */
+.overview{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.ov-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:20px;text-align:center}
+.ov-num{font-size:30px;font-weight:900;color:var(--or);letter-spacing:-1px}
+.ov-label{font-size:12px;color:var(--t3);margin-top:4px}
+
+/* GROUP */
+.group{margin-bottom:36px}
+.group-title{font-size:18px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.group-num{width:26px;height:26px;border-radius:8px;background:var(--or-pale);color:var(--or);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.group-sub{font-size:13px;color:var(--t3);margin-bottom:16px;margin-left:36px}
+
+.pages{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.page-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:.2s;display:block}
+.page-card:hover{border-color:var(--or-border);transform:translateY(-3px)}
+.page-preview{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;border-bottom:1px solid var(--border)}
+.page-tag{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;padding:3px 8px;border-radius:var(--rp);background:rgba(52,199,89,.2);color:var(--green)}
+.page-body{padding:14px 16px}
+.page-name{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.page-desc{font-size:12px;color:var(--t3);line-height:1.5}
+.page-open{font-size:12px;color:var(--or);font-weight:600;margin-top:10px;display:flex;align-items:center;gap:4px}
+
+.note{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--or);border-radius:var(--r);padding:18px 20px;margin-top:32px;font-size:13px;color:var(--t2);line-height:1.7}
+.note strong{color:var(--t1)}
+
+.footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-size:12px;color:var(--t3)}
+
+@media(max-width:860px){.pages{grid-template-columns:1fr}.overview{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <div class="logo"><div class="logo-box">D</div>droppalo</div>
+    <h1>Indice completo del progetto · Bozze interattive</h1>
+    <div class="header-badge">🇮🇹 Marketplace Live Shopping · Made in Italy</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- OVERVIEW -->
+  <div class="overview">
+    <div class="ov-card"><div class="ov-num">21</div><div class="ov-label">Schermate complete</div></div>
+    <div class="ov-card"><div class="ov-num">5</div><div class="ov-label">Aree del prodotto</div></div>
+    <div class="ov-card"><div class="ov-num">100%</div><div class="ov-label">Interattive</div></div>
+    <div class="ov-card"><div class="ov-num">Dark</div><div class="ov-label">Design system</div></div>
+  </div>
+
+  <!-- GROUP 1: PRINCIPALI -->
+  <div class="group">
+    <div class="group-title"><span class="group-num">1</span> Pagine principali</div>
+    <div class="group-sub">Il cuore dell'esperienza utente — ciò che vede chi naviga e compra</div>
+    <div class="pages">
+      <a class="page-card" href="droppalo_home_light.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a2e,#0d0d18)">🏠<span class="page-tag">LIGHT</span></div>
+        <div class="page-body"><div class="page-name">Homepage (Light)</div><div class="page-desc">Hero, live in corso, categorie, countdown, testimonial</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_home_dark.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)">🏠<span class="page-tag" style="background:rgba(255,69,0,.2);color:var(--or)">DARK</span></div>
+        <div class="page-body"><div class="page-name">Homepage (Dark)</div><div class="page-desc">Versione scura della home — per il toggle futuro</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_live_page.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a3e,#0d0d20)">🔴</div>
+        <div class="page-body"><div class="page-name">Pagina Live</div><div class="page-desc">Video stream, chat real-time, asta attiva, timer, prodotti</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_esplora_dark.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a100d,#110a07)">🔍</div>
+        <div class="page-body"><div class="page-name">Esplora</div><div class="page-desc">Filtri, ricerca, griglia live e prodotti, ordinamento</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_prodotto.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a3e,#0d0d20)">🃏</div>
+        <div class="page-body"><div class="page-name">Scheda Prodotto</div><div class="page-desc">Galleria, descrizione, storico offerte, Buy it Now</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_profile.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#2a1a4e,#1a1a3e)">👤</div>
+        <div class="page-body"><div class="page-name">Profilo Seller</div><div class="page-desc">Bio, rating, live passate, prodotti, recensioni</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_calendario.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d1a15,#071510)">📅</div>
+        <div class="page-body"><div class="page-name">Calendario Live</div><div class="page-desc">Live programmate, vista lista e settimana, promemoria</div><div class="page-open">Apri →</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GROUP 2: BUYER -->
+  <div class="group">
+    <div class="group-title"><span class="group-num">2</span> Area Buyer</div>
+    <div class="group-sub">Tutto ciò che serve a chi compra</div>
+    <div class="pages">
+      <a class="page-card" href="droppalo_auth.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)">🔑</div>
+        <div class="page-body"><div class="page-name">Registrazione / Login</div><div class="page-desc">Form email, Google/Apple, forza password</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_dashboard_buyer.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a0d1a,#110811)">📊</div>
+        <div class="page-body"><div class="page-name">Dashboard Buyer</div><div class="page-desc">Offerte attive, watchlist, seller seguiti</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_ordini.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d1520,#08101a)">📦</div>
+        <div class="page-body"><div class="page-name">I miei ordini</div><div class="page-desc">Storico, tracking spedizione, ricevute, resi</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_watchlist.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a0d14,#12090e)">🤍</div>
+        <div class="page-body"><div class="page-name">Watchlist</div><div class="page-desc">Prodotti salvati, live e seller preferiti</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_checkout.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d1a0d,#071207)">💳</div>
+        <div class="page-body"><div class="page-name">Checkout</div><div class="page-desc">Indirizzo, Stripe, riepilogo, IVA, conferma</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_impostazioni.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a1a,#0d0d0d)">⚙️</div>
+        <div class="page-body"><div class="page-name">Impostazioni</div><div class="page-desc">Profilo, notifiche, pagamenti, sicurezza, privacy</div><div class="page-open">Apri →</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GROUP 3: SELLER -->
+  <div class="group">
+    <div class="group-title"><span class="group-num">3</span> Area Seller</div>
+    <div class="group-sub">Il motore della piattaforma — gli strumenti per i venditori</div>
+    <div class="pages">
+      <a class="page-card" href="droppalo_seller_landing.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a0d05,#0d0703)">🎥</div>
+        <div class="page-body"><div class="page-name">Landing Seller</div><div class="page-desc">Benefici, commissioni, testimonial, FAQ</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_onboarding.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d0d1a,#080814)">✍️</div>
+        <div class="page-body"><div class="page-name">Onboarding + KYC</div><div class="page-desc">Verifica identità, dati fiscali, IBAN, multi-step</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_dashboard_seller.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a3e,#0d0d20)">📈</div>
+        <div class="page-body"><div class="page-name">Dashboard Seller</div><div class="page-desc">GMV, ordini, grafici, analytics, to-do</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_prodotti.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d1a0d,#071207)">📦</div>
+        <div class="page-body"><div class="page-name">Gestione Prodotti</div><div class="page-desc">Tabella inventario, modale creazione listing</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_live.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a0d1a,#110811)">🔴</div>
+        <div class="page-body"><div class="page-name">Crea Live</div><div class="page-desc">Setup live, scaletta prodotti, anteprima, checklist</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_guadagni.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a150d,#130f08)">💰</div>
+        <div class="page-body"><div class="page-name">Guadagni / Payout</div><div class="page-desc">Saldo, prelievi, movimenti, commissioni</div><div class="page-open">Apri →</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GROUP 4: ISTITUZIONALI -->
+  <div class="group">
+    <div class="group-title"><span class="group-num">4</span> Pagine istituzionali e legali</div>
+    <div class="group-sub">Credibilità, informazione e conformità normativa</div>
+    <div class="pages">
+      <a class="page-card" href="droppalo_chi_siamo.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#2a1a4e,#1a1a3e)">🇮🇹</div>
+        <div class="page-body"><div class="page-name">Chi siamo</div><div class="page-desc">Mission, valori, storia, team</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_come_funziona.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d1a15,#071510)">❓</div>
+        <div class="page-body"><div class="page-name">Come funziona</div><div class="page-desc">Guida buyer e seller, sicurezza</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_seller_academy.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a3e,#0d0d20)">🎓</div>
+        <div class="page-body"><div class="page-name">Seller Academy</div><div class="page-desc">Video corsi, guide, best practice</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_assistenza.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#0d0d1a,#080814)">💬</div>
+        <div class="page-body"><div class="page-name">Centro Assistenza</div><div class="page-desc">FAQ, categorie supporto, contatti</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_privacy.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a1a,#0d0d0d)">🔒</div>
+        <div class="page-body"><div class="page-name">Privacy Policy</div><div class="page-desc">GDPR, dati, diritti, cookie</div><div class="page-open">Apri →</div></div>
+      </a>
+      <a class="page-card" href="droppalo_termini.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a1a1a,#0d0d0d)">⚖️</div>
+        <div class="page-body"><div class="page-name">Termini e Condizioni</div><div class="page-desc">Regole marketplace, aste, recesso</div><div class="page-open">Apri →</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GROUP 5: COMPONENTI -->
+  <div class="group">
+    <div class="group-title"><span class="group-num">5</span> Componenti trasversali</div>
+    <div class="group-sub">I mattoni riutilizzabili dell'interfaccia</div>
+    <div class="pages">
+      <a class="page-card" href="droppalo_componenti.html">
+        <div class="page-preview" style="background:linear-gradient(135deg,#1a0d05,#0d0703)">🧩</div>
+        <div class="page-body"><div class="page-name">Notifiche · Ricerca · 404</div><div class="page-desc">Sistema notifiche, ricerca globale, pagina errore</div><div class="page-open">Apri →</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>📌 Nota importante:</strong> queste sono <strong>bozze grafiche interattive</strong> (prototipi HTML/CSS/JS), non il sito finale funzionante. Mostrano esattamente come sarà il prodotto e servono per allineare la visione, presentarla a partner e investitori, e guidare lo sviluppo tecnico. Il passo successivo è costruire il <strong>backend</strong> (database, logica aste, streaming, pagamenti reali) e collegare tutte le pagine in un'unica applicazione.
+  </div>
+
+</div>
+
+<footer class="footer">© 2025 Droppalo S.r.l. — Indice progetto — 🇮🇹 Made in Italy</footer>
+
+</body>
+</html>

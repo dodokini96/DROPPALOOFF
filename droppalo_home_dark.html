@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droppalo — Dark Version</title>
+<style>
+:root {
+  --or: #FF4500;
+  --or2: #FF6A00;
+  --or-pale: rgba(255,69,0,.1);
+  --or-glow: rgba(255,69,0,.25);
+  --bg: #0A0A0A;
+  --bg2: #111111;
+  --bg3: #191919;
+  --bg4: #222222;
+  --border: rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.14);
+  --t1: #FFFFFF;
+  --t2: rgba(255,255,255,.65);
+  --t3: rgba(255,255,255,.35);
+  --green: #34C759;
+  --r: 8px; --rm: 12px; --rl: 16px; --rp: 100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;height:60px;background:rgba(10,10,10,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-right:24px;flex-shrink:0}
+.logo-box{width:34px;height:34px;border-radius:9px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:13px;color:var(--t2);padding:6px 13px;border-radius:var(--r);transition:.15s}
+.nav-links a:hover{background:var(--bg4);color:var(--t1)}
+.nav-links a.active{color:var(--or)}
+.nav-search{flex:1;max-width:320px;margin:0 auto;position:relative}
+.nav-search input{width:100%;height:38px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rp);color:var(--t1);font-size:13px;padding:0 16px 0 40px;outline:none;transition:.15s}
+.nav-search input:focus{border-color:var(--or);background:var(--bg4)}
+.nav-search input::placeholder{color:var(--t3)}
+.nav-search .si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;pointer-events:none}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:16px}
+.btn-ghost{height:36px;padding:0 16px;border-radius:var(--rp);background:transparent;border:1px solid var(--border2);color:var(--t1);font-size:13px;font-weight:500;transition:.15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:var(--bg4)}
+.btn-primary{height:36px;padding:0 18px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:13px;font-weight:700;transition:.15s}
+.btn-primary:hover{background:var(--or2)}
+
+/* HERO */
+.hero{position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px 60px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(255,69,0,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 15% 70%,rgba(255,106,0,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 85% 70%,rgba(255,69,0,.06) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%)}
+.hero-content{position:relative;z-index:1;max-width:780px}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,69,0,.12);border:1px solid rgba(255,69,0,.3);color:#FF6A00;font-size:12px;font-weight:600;padding:6px 16px;border-radius:var(--rp);margin-bottom:28px;letter-spacing:.02em}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--or);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-size:64px;font-weight:900;line-height:1.0;letter-spacing:-2px;margin-bottom:20px}
+.hero h1 .or{color:var(--or);position:relative}
+.hero p{font-size:18px;color:var(--t2);max-width:520px;margin:0 auto 36px;line-height:1.65}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.btn-hero1{height:52px;padding:0 32px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:16px;font-weight:800;border:none;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:8px}
+.btn-hero1:hover{background:var(--or2);transform:translateY(-1px)}
+.btn-hero2{height:52px;padding:0 32px;border-radius:var(--rp);background:transparent;border:1.5px solid var(--border2);color:var(--t1);font-size:16px;font-weight:600;cursor:pointer;transition:.15s}
+.btn-hero2:hover{border-color:rgba(255,255,255,.4);background:var(--bg4)}
+.hero-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;background:var(--bg2)}
+.hero-stat{flex:1;padding:18px 28px;text-align:center;border-right:1px solid var(--border)}
+.hero-stat:last-child{border-right:none}
+.hero-stat .n{font-size:26px;font-weight:800;color:var(--t1)}
+.hero-stat .l{font-size:11px;color:var(--t3);margin-top:3px}
+
+/* COUNTDOWN */
+.countdown-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cd-label{font-size:13px;font-weight:600;color:var(--t2);flex-shrink:0}
+.cd-seller{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.cd-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.cd-info{min-width:0}
+.cd-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd-cat{font-size:11px;color:var(--t3)}
+.cd-timer{display:flex;gap:8px;flex-shrink:0}
+.cd-unit{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:8px 14px;text-align:center;min-width:54px}
+.cd-unit .num{font-size:22px;font-weight:800;color:var(--or);display:block;line-height:1}
+.cd-unit .lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;display:block;margin-top:2px}
+.cd-sep{font-size:22px;font-weight:800;color:var(--or);align-self:center;margin-top:-8px}
+.btn-cd{height:38px;padding:0 18px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer;flex-shrink:0}
+
+/* CATS */
+.cats{padding:32px 28px}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sec-title{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.sec-link{font-size:13px;color:var(--or);font-weight:500;cursor:pointer}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.cat-card{border:1px solid var(--border);border-radius:var(--rm);padding:18px 14px;background:var(--bg2);cursor:pointer;transition:.15s;text-align:center;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;background:var(--or-pale);opacity:0;transition:.2s}
+.cat-card:hover{border-color:rgba(255,69,0,.4);transform:translateY(-2px)}
+.cat-card:hover::before{opacity:1}
+.cat-emoji{font-size:32px;margin-bottom:8px;display:block}
+.cat-name{font-size:13px;font-weight:600;color:var(--t1);position:relative}
+.cat-count{font-size:11px;color:var(--t3);margin-top:2px;position:relative}
+
+/* LIVE GRID */
+.live-section{padding:0 28px 32px}
+.live-tabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap}
+.live-tab{height:34px;padding:0 16px;border-radius:var(--rp);background:var(--bg3);border:1px solid var(--border);color:var(--t2);font-size:13px;font-weight:500;cursor:pointer;transition:.15s}
+.live-tab:hover{border-color:var(--border2);color:var(--t1)}
+.live-tab.active{background:var(--or);border-color:var(--or);color:#fff}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.lcard{border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;background:var(--bg2);cursor:pointer;transition:.2s}
+.lcard:hover{border-color:rgba(255,69,0,.4);transform:translateY(-3px)}
+.lcard-thumb{position:relative;height:148px;display:flex;align-items:center;justify-content:center;font-size:52px}
+.lbadge{position:absolute;top:10px;left:10px;background:var(--or);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:5px;display:flex;align-items:center;gap:5px;letter-spacing:.04em}
+.ldot{width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite}
+.lviewers{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:3px 10px;border-radius:var(--rp);font-weight:500}
+.ltimer{position:absolute;bottom:10px;right:10px;background:var(--bg);color:var(--or);font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--rp)}
+.lcard-body{padding:13px 15px 15px}
+.lseller{font-size:11px;color:var(--t3);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.lverified{width:14px;height:14px;border-radius:50%;background:var(--or);color:#fff;font-size:8px;display:inline-flex;align-items:center;justify-content:center}
+.ltitle{font-size:14px;font-weight:600;color:var(--t1);margin-bottom:10px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lprice-row{display:flex;align-items:flex-end;justify-content:space-between}
+.lprice-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.04em}
+.lprice{font-size:20px;font-weight:800;color:var(--or)}
+.btn-lbid{height:34px;padding:0 16px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;transition:.15s}
+.btn-lbid:hover{background:var(--or2)}
+.ltags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.ltag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg4);color:var(--t3)}
+
+/* TESTIMONIALS */
+.testimonials{padding:0 28px 40px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.tcard{border:1px solid var(--border);border-radius:var(--rl);padding:22px;background:var(--bg2)}
+.tquote{font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:16px;font-style:italic}
+.tquote::before{content:'"';font-size:24px;color:var(--or);font-style:normal;line-height:0;vertical-align:-8px;margin-right:3px}
+.tauthor{display:flex;align-items:center;gap:10px}
+.tavatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.tname{font-size:13px;font-weight:600}
+.trole{font-size:11px;color:var(--t3);margin-top:1px}
+.tstars{color:#FFB800;font-size:12px;margin-left:auto}
+
+/* HOW IT WORKS */
+.how{padding:0 28px 48px}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.how-card{border:1px solid var(--border);border-radius:var(--rl);padding:24px;background:var(--bg2);position:relative;overflow:hidden}
+.how-num{font-size:64px;font-weight:900;color:var(--or-glow);position:absolute;top:-8px;right:14px;line-height:1;pointer-events:none}
+.how-icon{font-size:28px;margin-bottom:12px}
+.how-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.how-desc{font-size:13px;color:var(--t2);line-height:1.55}
+
+/* SELLER CTA */
+.seller-cta{margin:0 28px 48px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:48px 40px;display:flex;align-items:center;gap:32px;position:relative;overflow:hidden}
+.seller-cta::before{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,69,0,.15) 0%,transparent 70%)}
+.seller-cta::after{content:'';position:absolute;left:-40px;bottom:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,0,.08) 0%,transparent 70%)}
+.seller-cta-icon{font-size:56px;flex-shrink:0;position:relative;z-index:1}
+.seller-cta-text{flex:1;position:relative;z-index:1}
+.seller-cta-text h2{font-size:28px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+.seller-cta-text p{font-size:15px;color:var(--t2);line-height:1.55}
+.seller-cta-actions{display:flex;flex-direction:column;gap:8px;flex-shrink:0;position:relative;z-index:1}
+.btn-cta1{height:46px;padding:0 28px;border-radius:var(--rp);background:var(--or);color:#fff;font-size:15px;font-weight:800;border:none;cursor:pointer;white-space:nowrap;transition:.15s}
+.btn-cta1:hover{background:var(--or2)}
+.btn-cta2{height:38px;padding:0 20px;border-radius:var(--rp);background:transparent;border:1px solid var(--border2);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:.15s}
+.btn-cta2:hover{border-color:rgba(255,255,255,.3)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:40px 28px 24px;background:var(--bg)}
+.footer-top{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:32px;margin-bottom:36px}
+.fbrand .flogo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800;margin-bottom:10px}
+.fbrand .flogo .logo-box-sm{width:28px;height:28px;border-radius:7px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff}
+.fbrand p{font-size:13px;color:var(--t3);line-height:1.6;max-width:220px}
+.fcol h4{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.fcol a{display:block;font-size:13px;color:var(--t2);margin-bottom:8px;cursor:pointer;transition:.15s}
+.fcol a:hover{color:var(--or)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.footer-copy{font-size:12px;color:var(--t3)}
+.footer-legal{display:flex;gap:16px}
+.footer-legal a{font-size:12px;color:var(--t3);cursor:pointer}
+.footer-legal a:hover{color:var(--or)}
+
+/* ============================================
+   MOBILE — Home (rifinitura curata)
+   ============================================ */
+@media (max-width: 768px) {
+  .nav { padding: 0 16px; gap: 8px; }
+  .nav-links { display: none; }
+  .nav-search { display: none; }
+  .logo { margin-right: auto; }
+  .nav-right { margin-left: 0; }
+  .btn-ghost { padding: 0 12px; font-size: 12px; }
+  .btn-primary { padding: 0 14px; font-size: 12px; }
+
+  .hero { min-height: auto; padding: 56px 20px 48px; }
+  .hero h1 { font-size: 40px; letter-spacing: -1px; }
+  .hero p { font-size: 16px; }
+  .hero-ctas { margin-bottom: 40px; }
+  .btn-hero1, .btn-hero2 { height: 48px; font-size: 15px; padding: 0 24px; }
+
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stat { flex: 1 1 33%; padding: 14px 8px; }
+  .hero-stat .n { font-size: 20px; }
+
+  .countdown-strip { gap: 12px; padding: 16px; }
+  .cd-label { width: 100%; }
+  .cd-seller { width: 100%; }
+  .btn-cd { width: 100%; }
+
+  .cats, .live-section, .testimonials, .how { padding-left: 16px; padding-right: 16px; }
+
+  .seller-cta { flex-direction: column; text-align: center; padding: 32px 22px; gap: 20px; margin: 0 16px 40px; }
+  .seller-cta-text h2 { font-size: 24px; }
+  .seller-cta-actions { width: 100%; }
+  .btn-cta1 { width: 100%; }
+
+  .footer { padding: 32px 16px 20px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .fbrand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 12px; }
+}
+@media (max-width: 420px) {
+  .hero h1 { font-size: 33px; }
+  .cats-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo"><img class="logo-box" src="data:image/png;base64,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" alt="Droppalo">droppalo</div>
+  <div class="nav-links">
+    <a href="#" class="active">Live ora</a>
+    <a href="#">Esplora</a>
+    <a href="#">Categorie</a>
+    <a href="#">Seller</a>
+  </div>
+  <div class="nav-search">
+    <span class="si">🔍</span>
+    <input type="text" placeholder="Cerca live, seller, prodotti...">
+  </div>
+  <div class="nav-right">
+    <button class="btn-ghost">Accedi</button>
+    <button class="btn-primary">Vendi live →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="pulse"></div>54 live attive adesso in Italia</div>
+    <h1>Compra. Vendi.<br><span class="or">Drop</span> dal vivo.</h1>
+    <p>Il marketplace live italiano per carte collezionabili, sneakers, moda vintage e molto altro. Aste in tempo reale, community vera.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero1">🔴 Guarda le live</button>
+      <button class="btn-hero2">Diventa seller →</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">12K+</div><div class="l">Seller attivi</div></div>
+      <div class="hero-stat"><div class="n">€2.8M</div><div class="l">Venduto questo mese</div></div>
+      <div class="hero-stat"><div class="n">94K</div><div class="l">Community</div></div>
+      <div class="hero-stat"><div class="n">4.9 ⭐</div><div class="l">Rating medio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-strip">
+  <span class="cd-label">⏰ Prossima live:</span>
+  <div class="cd-seller">
+    <div class="cd-avatar" style="background:#5856D6;color:#fff">GC</div>
+    <div class="cd-info">
+      <div class="cd-name">GoldenCards Italia — Magic MTG Rare & Mythic drop</div>
+      <div class="cd-cat">Carte collezionabili · 127 promemoria attivi</div>
+    </div>
+  </div>
+  <div class="cd-timer">
+    <div class="cd-unit"><span class="num" id="cd-h">00</span><span class="lbl">ore</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="num" id="cd-m">47</span><span class="lbl">min</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="num" id="cd-s">23</span><span class="lbl">sec</span></div>
+  </div>
+  <button class="btn-cd">🔔 Ricordami</button>
+</div>
+
+<!-- CATEGORIES -->
+<section class="cats">
+  <div class="sec-header">
+    <div class="sec-title">Esplora le categorie</div>
+    <span class="sec-link">Vedi tutte →</span>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card"><span class="cat-emoji">🃏</span><div class="cat-name">Carte Pokémon</div><div class="cat-count">1.2k live</div></div>
+    <div class="cat-card"><span class="cat-emoji">✨</span><div class="cat-name">Magic TCG</div><div class="cat-count">340 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">👟</span><div class="cat-name">Sneakers</div><div class="cat-count">890 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">👗</span><div class="cat-name">Vintage</div><div class="cat-count">670 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">🏆</span><div class="cat-name">Sport cards</div><div class="cat-count">210 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">📱</span><div class="cat-name">Elettronica</div><div class="cat-count">180 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">💍</span><div class="cat-name">Gioielli</div><div class="cat-count">95 live</div></div>
+    <div class="cat-card"><span class="cat-emoji">🎮</span><div class="cat-name">Videogiochi</div><div class="cat-count">120 live</div></div>
+  </div>
+</section>
+
+<!-- LIVE GRID -->
+<section class="live-section">
+  <div class="sec-header">
+    <div class="sec-title"><span style="color:var(--or)">●</span> Live adesso</div>
+    <span class="sec-link">Vedi tutte (54) →</span>
+  </div>
+  <div class="live-tabs">
+    <button class="live-tab active">🔥 Più viste</button>
+    <button class="live-tab">🃏 Carte</button>
+    <button class="live-tab">👟 Sneakers</button>
+    <button class="live-tab">👗 Vintage</button>
+    <button class="live-tab">⏰ Presto live</button>
+  </div>
+  <div class="live-grid">
+    <div class="lcard">
+      <div class="lcard-thumb" style="background:linear-gradient(135deg,#1a1a3e,#0d0d1a)">🃏
+        <div class="lbadge"><div class="ldot"></div>LIVE</div>
+        <div class="lviewers">👁 547</div>
+        <div class="ltimer">01:47</div>
+      </div>
+      <div class="lcard-body">
+        <div class="lseller"><span class="lverified">✓</span> PokeNation_IT · ⭐ 4.9</div>
+        <div class="ltitle">Pack opening Scarlet & Violet 151 — aste live carta per carta</div>
+        <div class="lprice-row">
+          <div><div class="lprice-lbl">Offerta attuale</div><div class="lprice">€ 47</div></div>
+          <button class="btn-lbid">Offri →</button>
+        </div>
+        <div class="ltags"><span class="ltag">Pokémon</span><span class="ltag">Pack opening</span><span class="ltag">Aste</span></div>
+      </div>
+    </div>
+    <div class="lcard">
+      <div class="lcard-thumb" style="background:linear-gradient(135deg,#0d1a0d,#0a150a)">👟
+        <div class="lbadge"><div class="ldot"></div>LIVE</div>
+        <div class="lviewers">👁 312</div>
+        <div class="ltimer">08:22</div>
+      </div>
+      <div class="lcard-body">
+        <div class="lseller"><span class="lverified">✓</span> MilanSneakerLab · ⭐ 4.8</div>
+        <div class="ltitle">Jordan 1 Retro High + New Balance 550 — unboxing e aste</div>
+        <div class="lprice-row">
+          <div><div class="lprice-lbl">Prezzo fisso</div><div class="lprice">€ 89</div></div>
+          <button class="btn-lbid">Compra →</button>
+        </div>
+        <div class="ltags"><span class="ltag">Sneakers</span><span class="ltag">Jordan</span><span class="ltag">NB 550</span></div>
+      </div>
+    </div>
+    <div class="lcard">
+      <div class="lcard-thumb" style="background:linear-gradient(135deg,#1a100d,#120a07)">👗
+        <div class="lbadge"><div class="ldot"></div>LIVE</div>
+        <div class="lviewers">👁 198</div>
+        <div class="ltimer">15:03</div>
+      </div>
+      <div class="lcard-body">
+        <div class="lseller"><span class="lverified">✓</span> VintageRomaShop · ⭐ 4.7</div>
+        <div class="ltitle">Levi's, Ralph Lauren, Tommy anni '90 — 80 pezzi autentici</div>
+        <div class="lprice-row">
+          <div><div class="lprice-lbl">Aste da</div><div class="lprice">€ 5</div></div>
+          <button class="btn-lbid">Offri →</button>
+        </div>
+        <div class="ltags"><span class="ltag">Vintage</span><span class="ltag">Anni 90</span><span class="ltag">Levi's</span></div>
+      </div>
+    </div>
+    <div class="lcard">
+      <div class="lcard-thumb" style="background:linear-gradient(135deg,#1a0d1a,#110811)">✨
+        <div class="lbadge"><div class="ldot"></div>LIVE</div>
+        <div class="lviewers">👁 421</div>
+        <div class="ltimer">00:52</div>
+      </div>
+      <div class="lcard-body">
+        <div class="lseller"><span class="lverified">✓</span> MagicCardsMaster · ⭐ 5.0</div>
+        <div class="ltitle">Magic MTG — Rare & Mythic, asta finale in corso!</div>
+        <div class="lprice-row">
+          <div><div class="lprice-lbl">Offerta attuale</div><div class="lprice">€ 67</div></div>
+          <button class="btn-lbid">Offri →</button>
+        </div>
+        <div class="ltags"><span class="ltag">Magic MTG</span><span class="ltag">Rare</span><span class="ltag">⏳ Ultimi secondi</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="sec-header">
+    <div class="sec-title">Come funziona</div>
+  </div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-num">1</div><div class="how-icon">🔍</div><div class="how-title">Trova una live</div><div class="how-desc">Esplora le live attive per categoria o cerca il seller che ti piace. Entra e guarda gratis.</div></div>
+    <div class="how-card"><div class="how-num">2</div><div class="how-icon">🔥</div><div class="how-title">Fai la tua offerta</div><div class="how-desc">Partecipa all'asta in tempo reale o acquista subito al prezzo fisso. Un click e sei dentro.</div></div>
+    <div class="how-card"><div class="how-num">3</div><div class="how-icon">💳</div><div class="how-title">Paga in sicurezza</div><div class="how-desc">Pagamento protetto con Stripe. I tuoi soldi vengono trattenuti fino alla conferma di ricezione.</div></div>
+    <div class="how-card"><div class="how-num">4</div><div class="how-icon">📦</div><div class="how-title">Ricevi a casa</div><div class="how-desc">Il seller spedisce con tracking. Hai 48 ore per segnalare problemi. Rimborso garantito.</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="sec-header">
+    <div class="sec-title">Cosa dicono i seller</div>
+    <span class="sec-link">Leggi tutte le storie →</span>
+  </div>
+  <div class="tgrid">
+    <div class="tcard">
+      <div class="tquote">In 3 mesi ho costruito una community di 2.400 follower e faccio €6.000 al mese solo con le live di Pokémon. Non avrei mai pensato fosse possibile in Italia.</div>
+      <div class="tauthor">
+        <div class="tavatar" style="background:#5856D6;color:#fff">PN</div>
+        <div><div class="tname">PokeNation_IT</div><div class="trole">Carte collezionabili · Milano</div></div>
+        <div class="tstars">★★★★★</div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tquote">Avevo un negozietto di sneaker a Napoli con poco traffico. Ora le mie live fanno 400+ spettatori e vendo il triplo rispetto al negozio fisico.</div>
+      <div class="tauthor">
+        <div class="tavatar" style="background:#34C759;color:#000">SK</div>
+        <div><div class="tname">SneakerKing_Napoli</div><div class="trole">Sneakers · Napoli</div></div>
+        <div class="tstars">★★★★★</div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tquote">Il live shopping è il futuro del vintage. I miei clienti vedono il pezzo, fanno domande in chat, e comprano con fiducia. Zero resi, zero problemi.</div>
+      <div class="tauthor">
+        <div class="tavatar" style="background:#FF6B35;color:#fff">VR</div>
+        <div><div class="tname">VintageRomaShop</div><div class="trole">Moda vintage · Roma</div></div>
+        <div class="tstars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELLER CTA -->
+<div class="seller-cta">
+  <div class="seller-cta-icon">🎥</div>
+  <div class="seller-cta-text">
+    <h2>Porta il tuo business live.</h2>
+    <p>Unisciti ai seller fondatori di Droppalo. Zero commissioni per i primi 3 mesi, supporto dedicato e accesso prioritario alle funzioni beta.</p>
+  </div>
+  <div class="seller-cta-actions">
+    <button class="btn-cta1">Candidati come seller →</button>
+    <button class="btn-cta2">Scopri come funziona</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="fbrand">
+      <div class="flogo"><div class="logo-box-sm">D</div>droppalo</div>
+      <p>Il primo marketplace live shopping italiano. Aste in tempo reale, community vera, Made in Italy.</p>
+    </div>
+    <div class="fcol"><h4>Piattaforma</h4><a>Live in corso</a><a>Esplora</a><a>Calendario</a><a>Flash deals</a></div>
+    <div class="fcol"><h4>Seller</h4><a>Diventa seller</a><a>Seller Academy</a><a>Commissioni</a><a>Dashboard</a></div>
+    <div class="fcol"><h4>Supporto</h4><a>Centro assistenza</a><a>Spedizioni</a><a>Resi</a><a>Contatti</a></div>
+    <div class="fcol"><h4>Community</h4><a>Discord</a><a>Instagram</a><a>TikTok</a><a>Blog</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Droppalo S.r.l. — P.IVA 12345678901 — 🇮🇹 Made in Italy</div>
+    <div class="footer-legal"><a>Privacy</a><a>Termini</a><a>Cookie</a></div>
+  </div>
+</footer>
+
+<script>
+// Countdown timer
+let total = 47*60+23;
+function tick(){
+  total--;
+  if(total<0)total=0;
+  document.getElementById('cd-h').textContent=String(Math.floor(total/3600)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor((total%3600)/60)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(total%60).padStart(2,'0');
+}
+setInterval(tick,1000);
+
+// Live tabs
+document.querySelectorAll('.live-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.live-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droppalo — I miei ordini</title>
+<style>
+:root{
+  --or:#FF4500;--or2:#FF6A00;--or-pale:rgba(255,69,0,.12);--or-border:rgba(255,69,0,.3);
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#191919;--bg4:#222222;--bg5:#2C2C2C;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--border3:rgba(255,255,255,.22);
+  --t1:#FFFFFF;--t2:rgba(255,255,255,.65);--t3:rgba(255,255,255,.35);
+  --green:#34C759;--blue:#0A84FF;--red:#FF3B30;--amber:#FFB800;--purple:#5856D6;
+  --r:8px;--rm:12px;--rl:16px;--rp:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none}
+
+.nav{position:sticky;top:0;z-index:100;height:60px;background:rgba(10,10,10,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;letter-spacing:-.4px;margin-right:20px;flex-shrink:0}
+.logo-box{width:32px;height:32px;border-radius:8px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-size:13px;color:var(--t3);padding:6px 12px;border-radius:var(--r);transition:.15s}
+.nav-links a:hover{background:var(--bg4);color:var(--t1)}
+.nav-search{flex:1;max-width:340px;margin:0 auto;position:relative}
+.nav-search input{width:100%;height:38px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--rp);color:var(--t1);font-size:13px;padding:0 16px 0 40px;outline:none}
+.nav-search input::placeholder{color:var(--t3)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:12px}
+.nav-bell{width:38px;height:38px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-avatar{width:38px;height:38px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 60px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 12px;position:sticky;top:60px;height:calc(100vh - 60px)}
+.side-user{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:18px}
+.side-user-avatar{width:42px;height:42px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.side-user-name{font-size:14px;font-weight:700}
+.side-user-email{font-size:11px;color:var(--t3)}
+.side-menu{display:flex;flex-direction:column;gap:2px}
+.side-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r);color:var(--t2);font-size:13px;font-weight:500;cursor:pointer;transition:.15s}
+.side-item:hover{background:var(--bg4);color:var(--t1)}
+.side-item.active{background:var(--or-pale);color:var(--or)}
+.side-item .si-icon{font-size:16px;width:20px;text-align:center}
+.side-item .si-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--or);color:#fff;padding:1px 7px;border-radius:var(--rp)}
+.side-divider{border-top:1px solid var(--border);margin:14px 8px}
+
+.main{padding:28px 28px 60px;overflow-y:auto}
+.page-title{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.page-sub{font-size:14px;color:var(--t3);margin-bottom:24px}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap}
+.ftab{height:36px;padding:0 16px;border-radius:var(--rp);background:var(--bg3);border:1px solid var(--border);color:var(--t2);font-size:13px;font-weight:500;transition:.15s;display:flex;align-items:center;gap:6px}
+.ftab:hover{border-color:var(--border2);color:var(--t1)}
+.ftab.active{background:var(--t1);border-color:var(--t1);color:var(--bg)}
+.ftab .fcount{font-size:10px;font-weight:700;padding:1px 6px;border-radius:var(--rp);background:var(--or);color:#fff}
+.ftab.active .fcount{background:var(--bg4);color:var(--t1)}
+
+/* ORDER CARD */
+.order{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);margin-bottom:16px;overflow:hidden}
+.order-header{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.order-id{font-size:13px;font-weight:700}
+.order-date{font-size:12px;color:var(--t3)}
+.order-status{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rp)}
+.status-delivered{background:rgba(52,199,89,.12);color:var(--green)}
+.status-transit{background:rgba(10,132,255,.12);color:var(--blue)}
+.status-preparing{background:rgba(255,184,0,.12);color:var(--amber)}
+.status-cancelled{background:rgba(255,59,48,.12);color:var(--red)}
+
+.order-body{padding:18px}
+.order-product{display:flex;align-items:center;gap:14px}
+.op-thumb{width:64px;height:64px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
+.op-info{flex:1;min-width:0}
+.op-name{font-size:15px;font-weight:600;margin-bottom:3px}
+.op-seller{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:5px}
+.opv{width:13px;height:13px;border-radius:50%;background:var(--or);color:#fff;font-size:7px;display:inline-flex;align-items:center;justify-content:center}
+.op-price{font-size:20px;font-weight:800;color:var(--or);flex-shrink:0}
+
+/* TRACKING */
+.tracking{margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.tracking-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tracking-carrier{font-size:13px;color:var(--t2)}
+.tracking-carrier strong{color:var(--t1)}
+.tracking-num{font-size:12px;color:var(--blue);font-weight:600;cursor:pointer}
+.tracking-bar{display:flex;align-items:center;position:relative;margin:0 12px}
+.track-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.track-dot{width:28px;height:28px;border-radius:50%;background:var(--bg4);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;margin-bottom:8px;transition:.2s}
+.track-dot.done{background:var(--green);border-color:var(--green)}
+.track-dot.current{background:var(--or);border-color:var(--or);animation:glow 1.5s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(255,69,0,.4)}50%{box-shadow:0 0 0 6px rgba(255,69,0,0)}}
+.track-label{font-size:11px;color:var(--t3);text-align:center}
+.track-label.active{color:var(--t1);font-weight:600}
+.track-line{position:absolute;top:14px;left:0;right:0;height:2px;background:var(--border2);z-index:0}
+.track-line-fill{position:absolute;top:14px;left:0;height:2px;background:var(--green);z-index:0;transition:.3s}
+
+/* ACTIONS */
+.order-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.btn-action{height:38px;padding:0 16px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--border2);color:var(--t1);font-size:13px;font-weight:600;transition:.15s;display:flex;align-items:center;gap:6px}
+.btn-action:hover{border-color:var(--border3);background:var(--bg4)}
+.btn-action.primary{background:var(--or);border-color:var(--or);color:#fff}
+.btn-action.primary:hover{background:var(--or2)}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .tracking-bar{display:none}
+}
+
+
+@media(max-width:768px){
+  .nav{padding:0 14px !important}
+  .nav-links{display:none}
+  .nav-search{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><img class="logo-box" src="data:image/png;base64,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" alt="Droppalo">droppalo</div>
+  <div class="nav-links"><a href="#">Home</a><a href="#">Esplora</a><a href="#">Calendario</a><a href="#">Seller</a></div>
+  <div class="nav-search"><span class="si">🔍</span><input type="text" placeholder="Cerca live, seller, prodotti..."></div>
+  <div class="nav-right"><div class="nav-bell">🔔</div><div class="nav-avatar">MR</div></div>
+</nav>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="side-user">
+      <div class="side-user-avatar">MR</div>
+      <div><div class="side-user-name">marco_roma92</div><div class="side-user-email">marco.rossi@email.com</div></div>
+    </div>
+    <div class="side-menu">
+      <div class="side-item"><span class="si-icon">🏠</span> Dashboard</div>
+      <div class="side-item"><span class="si-icon">🔥</span> Offerte attive <span class="si-badge">3</span></div>
+      <div class="side-item active"><span class="si-icon">📦</span> I miei ordini</div>
+      <div class="side-item"><span class="si-icon">🤍</span> Watchlist <span class="si-badge">8</span></div>
+      <div class="side-item"><span class="si-icon">👥</span> Seller seguiti</div>
+      <div class="side-divider"></div>
+      <div class="side-item"><span class="si-icon">💳</span> Pagamenti</div>
+      <div class="side-item"><span class="si-icon">📍</span> Indirizzi</div>
+      <div class="side-item"><span class="si-icon">⚙️</span> Impostazioni</div>
+      <div class="side-divider"></div>
+      <div class="side-item"><span class="si-icon">🚪</span> Esci</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-title">I miei ordini</div>
+    <div class="page-sub">Traccia le spedizioni, scarica le ricevute e gestisci resi</div>
+
+    <div class="filter-tabs">
+      <button class="ftab active" onclick="filterOrders(this)">Tutti <span class="fcount">27</span></button>
+      <button class="ftab" onclick="filterOrders(this)">📦 In transito <span class="fcount">2</span></button>
+      <button class="ftab" onclick="filterOrders(this)">⏳ In preparazione <span class="fcount">1</span></button>
+      <button class="ftab" onclick="filterOrders(this)">✅ Consegnati</button>
+      <button class="ftab" onclick="filterOrders(this)">↩️ Resi</button>
+    </div>
+
+    <!-- ORDER 1: IN TRANSIT -->
+    <div class="order">
+      <div class="order-header">
+        <span class="order-id">Ordine #DRP-29481</span>
+        <span class="order-date">11 Giugno 2026</span>
+        <span class="order-status status-transit">📦 In transito</span>
+      </div>
+      <div class="order-body">
+        <div class="order-product">
+          <div class="op-thumb" style="background:linear-gradient(135deg,#1a1a3e,#0d0d20)">🃏</div>
+          <div class="op-info">
+            <div class="op-name">Charizard ex SV151 PSA 9 Mint</div>
+            <div class="op-seller"><span class="opv">✓</span>PokeNation_IT · vinto in asta</div>
+          </div>
+          <div class="op-price">€ 47</div>
+        </div>
+
+        <div class="tracking">
+          <div class="tracking-head">
+            <div class="tracking-carrier">Corriere: <strong>BRT Bartolini</strong> · Consegna stimata: <strong>14 Giu</strong></div>
+            <div class="tracking-num">📍 Traccia: 0089234718IT</div>
+          </div>
+          <div class="tracking-bar">
+            <div class="track-line"></div>
+            <div class="track-line-fill" style="width:66%"></div>
+            <div class="track-step"><div class="track-dot done">✓</div><div class="track-label active">Ordine confermato</div></div>
+            <div class="track-step"><div class="track-dot done">✓</div><div class="track-label active">Spedito</div></div>
+            <div class="track-step"><div class="track-dot current">🚚</div><div class="track-label active">In consegna</div></div>
+            <div class="track-step"><div class="track-dot">🏠</div><div class="track-label">Consegnato</div></div>
+          </div>
+        </div>
+
+        <div class="order-actions">
+          <button class="btn-action primary">📍 Traccia spedizione</button>
+          <button class="btn-action">💬 Contatta seller</button>
+          <button class="btn-action">🧾 Scarica ricevuta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 2: PREPARING -->
+    <div class="order">
+      <div class="order-header">
+        <span class="order-id">Ordine #DRP-29455</span>
+        <span class="order-date">10 Giugno 2026</span>
+        <span class="order-status status-preparing">⏳ In preparazione</span>
+      </div>
+      <div class="order-body">
+        <div class="order-product">
+          <div class="op-thumb" style="background:linear-gradient(135deg,#0d1a0d,#071207)">👟</div>
+          <div class="op-info">
+            <div class="op-name">Jordan 1 Retro High OG University Blue</div>
+            <div class="op-seller"><span class="opv">✓</span>MilanSneakerLab · compra subito</div>
+          </div>
+          <div class="op-price">€ 189</div>
+        </div>
+
+        <div class="tracking">
+          <div class="tracking-head">
+            <div class="tracking-carrier">Il venditore sta preparando il pacco</div>
+            <div class="tracking-num" style="color:var(--t3)">Tracking disponibile a breve</div>
+          </div>
+          <div class="tracking-bar">
+            <div class="track-line"></div>
+            <div class="track-line-fill" style="width:0%"></div>
+            <div class="track-step"><div class="track-dot done">✓</div><div class="track-label active">Ordine confermato</div></div>
+            <div class="track-step"><div class="track-dot current">📦</div><div class="track-label active">In preparazione</div></div>
+            <div class="track-step"><div class="track-dot">🚚</div><div class="track-label">In consegna</div></div>
+            <div class="track-step"><div class="track-dot">🏠</div><div class="track-label">Consegnato</div></div>
+          </div>
+        </div>
+
+        <div class="order-actions">
+          <button class="btn-action">💬 Contatta seller</button>
+          <button class="btn-action">🧾 Scarica ricevuta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 3: DELIVERED -->
+    <div class="order">
+      <div class="order-header">
+        <span class="order-id">Ordine #DRP-28903</span>
+        <span class="order-date">2 Giugno 2026</span>
+        <span class="order-status status-delivered">✅ Consegnato</span>
+      </div>
+      <div class="order-body">
+        <div class="order-product">
+          <div class="op-thumb" style="background:linear-gradient(135deg,#1a100d,#110a07)">👗</div>
+          <div class="op-info">
+            <div class="op-name">Maglione Ralph Lauren vintage anni '90 — lana</div>
+            <div class="op-seller"><span class="opv">✓</span>VintageRomaShop · vinto in asta</div>
+          </div>
+          <div class="op-price">€ 34</div>
+        </div>
+
+        <div class="order-actions">
+          <button class="btn-action primary">⭐ Lascia recensione</button>
+          <button class="btn-action">🔁 Compra di nuovo</button>
+          <button class="btn-action">↩️ Apri reso</button>
+          <button class="btn-action">🧾 Ricevuta</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 4: DELIVERED -->
+    <div class="order">
+      <div class="order-header">
+        <span class="order-id">Ordine #DRP-28755</span>
+        <span class="order-date">28 Maggio 2026</span>
+        <span class="order-status status-delivered">✅ Consegnato</span>
+      </div>
+      <div class="order-body">
+        <div class="order-product">
+          <div class="op-thumb" style="background:linear-gradient(135deg,#1a0d1a,#110811)">✨</div>
+          <div class="op-info">
+            <div class="op-name">Magic MTG — bundle 10 carte Rare assortite</div>
+            <div class="op-seller"><span class="opv">✓</span>MagicCardsMaster · compra subito</div>
+          </div>
+          <div class="op-price">€ 22</div>
+        </div>
+
+        <div class="order-actions">
+          <button class="btn-action">⭐ Modifica recensione (★★★★★)</button>
+          <button class="btn-action">🔁 Compra di nuovo</button>
+          <button class="btn-action">🧾 Ricevuta</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function filterOrders(btn){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+}
+document.querySelectorAll('.side-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.side-item').forEach(i=>i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

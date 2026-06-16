@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droppalo — Accedi</title>
+<style>
+:root{
+  --or:#FF4500;--or2:#FF6A00;--or-pale:rgba(255,69,0,.12);--or-border:rgba(255,69,0,.3);
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#191919;--bg4:#222222;--bg5:#2C2C2C;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--border3:rgba(255,255,255,.22);
+  --t1:#FFFFFF;--t2:rgba(255,255,255,.65);--t3:rgba(255,255,255,.35);
+  --green:#34C759;--blue:#0A84FF;--red:#FF3B30;--amber:#FFB800;
+  --r:8px;--rm:12px;--rl:16px;--rp:100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5;min-height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none}
+input{font-family:inherit}
+
+.wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+
+/* LEFT SIDE - branding */
+.side{background:var(--bg2);border-right:1px solid var(--border);padding:48px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.side::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 40%,rgba(255,69,0,.15) 0%,transparent 65%)}
+.side-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 70% 70% at 40% 50%,black 10%,transparent 75%)}
+.side-content{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
+.side-logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:auto}
+.side-logo .logo-box{width:42px;height:42px;border-radius:11px;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:900;color:#fff}
+.side-headline{font-size:36px;font-weight:900;letter-spacing:-1px;line-height:1.15;margin-bottom:18px}
+.side-headline .or{color:var(--or)}
+.side-text{font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:32px;max-width:380px}
+.side-features{display:flex;flex-direction:column;gap:14px}
+.side-feature{display:flex;align-items:center;gap:12px}
+.sf-icon{width:38px;height:38px;border-radius:10px;background:var(--or-pale);border:1px solid var(--or-border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sf-text{font-size:13px;color:var(--t2)}
+.sf-text strong{color:var(--t1);font-weight:600;display:block;font-size:14px}
+.side-stats{display:flex;gap:28px;margin-top:auto;padding-top:32px}
+.side-stat .n{font-size:24px;font-weight:800}
+.side-stat .l{font-size:12px;color:var(--t3)}
+
+/* RIGHT SIDE - form */
+.form-side{display:flex;align-items:center;justify-content:center;padding:48px 24px}
+.form-box{width:100%;max-width:380px}
+.form-tabs{display:flex;background:var(--bg3);border-radius:var(--rm);padding:4px;margin-bottom:28px}
+.form-tab{flex:1;height:40px;border-radius:var(--r);background:transparent;border:none;color:var(--t3);font-size:14px;font-weight:600;transition:.15s}
+.form-tab.active{background:var(--or);color:#fff}
+.form-title{font-size:24px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
+.form-sub{font-size:14px;color:var(--t3);margin-bottom:28px}
+
+/* SOCIAL BUTTONS */
+.social-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.social-btn{height:48px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--border2);color:var(--t1);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;transition:.15s}
+.social-btn:hover{background:var(--bg4);border-color:var(--border3)}
+.social-icon{font-size:18px}
+
+.divider{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.divider span{font-size:12px;color:var(--t3)}
+
+/* FORM FIELDS */
+.field{margin-bottom:16px}
+.field-label{font-size:13px;font-weight:600;color:var(--t2);margin-bottom:7px;display:block}
+.field-input-wrap{position:relative}
+.field-input{width:100%;height:48px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--r);color:var(--t1);font-size:14px;padding:0 16px;outline:none;transition:.15s}
+.field-input:focus{border-color:var(--or);background:var(--bg4)}
+.field-input::placeholder{color:var(--t3)}
+.field-input.with-icon{padding-left:44px}
+.field-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--t3);pointer-events:none}
+.field-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t3);cursor:pointer;background:none;border:none}
+.field-hint{font-size:11px;color:var(--t3);margin-top:6px}
+
+.form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.checkbox-label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2);cursor:pointer}
+.checkbox-label input{width:16px;height:16px;accent-color:var(--or);cursor:pointer}
+.forgot-link{font-size:13px;color:var(--or);font-weight:500;cursor:pointer}
+
+.btn-submit{width:100%;height:50px;border-radius:var(--r);background:var(--or);color:#fff;font-size:15px;font-weight:800;transition:.15s;margin-bottom:18px}
+.btn-submit:hover{background:var(--or2)}
+.btn-submit:active{transform:scale(.99)}
+
+.form-footer{text-align:center;font-size:13px;color:var(--t3)}
+.form-footer a{color:var(--or);font-weight:600;cursor:pointer}
+
+.terms{font-size:11px;color:var(--t3);text-align:center;margin-top:24px;line-height:1.6}
+.terms a{color:var(--t2);text-decoration:underline;cursor:pointer}
+
+/* PASSWORD STRENGTH */
+.pwd-strength{display:flex;gap:4px;margin-top:8px}
+.pwd-bar{flex:1;height:4px;border-radius:2px;background:var(--bg4);transition:.2s}
+.pwd-bar.active1{background:var(--red)}
+.pwd-bar.active2{background:var(--amber)}
+.pwd-bar.active3{background:var(--green)}
+
+/* signup-only fields hidden by default */
+.signup-only{display:none}
+body.mode-signup .signup-only{display:block}
+body.mode-signup .login-only{display:none}
+
+@media(max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  .side{display:none}
+}
+
+
+@media(max-width:768px){
+  .nav{padding:0 14px !important}
+  .nav-links{display:none}
+  .nav-search{display:none}
+}
+</style>
+</head>
+<body class="mode-login">
+
+<div class="wrap">
+
+  <!-- LEFT BRANDING -->
+  <div class="side">
+    <div class="side-grid"></div>
+    <div class="side-content">
+      <a class="side-logo"><img class="logo-box" src="data:image/png;base64,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" alt="Droppalo">droppalo</a>
+
+      <div>
+        <div class="side-headline">Entra nel<br>marketplace live <span class="or">#1</span> in Italia.</div>
+        <div class="side-text">Compra e vendi in diretta carte collezionabili, sneakers, vintage e molto altro. Aste in tempo reale, community vera.</div>
+
+        <div class="side-features">
+          <div class="side-feature">
+            <div class="sf-icon">🔴</div>
+            <div class="sf-text"><strong>Aste live in tempo reale</strong>Partecipa e fai offerte dal vivo</div>
+          </div>
+          <div class="side-feature">
+            <div class="sf-icon">🛡️</div>
+            <div class="sf-text"><strong>Acquisti protetti</strong>Pagamenti sicuri e resi garantiti</div>
+          </div>
+          <div class="side-feature">
+            <div class="sf-icon">⚡</div>
+            <div class="sf-text"><strong>Seller verificati</strong>Solo venditori autenticati e affidabili</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-stats">
+        <div class="side-stat"><div class="n">94K+</div><div class="l">Membri</div></div>
+        <div class="side-stat"><div class="n">12K+</div><div class="l">Seller</div></div>
+        <div class="side-stat"><div class="n">4.9★</div><div class="l">Rating</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="form-side">
+    <div class="form-box">
+
+      <div class="form-tabs">
+        <button class="form-tab active" onclick="setMode('login', this)">Accedi</button>
+        <button class="form-tab" onclick="setMode('signup', this)">Registrati</button>
+      </div>
+
+      <div class="form-title">
+        <span class="login-only">Bentornato! 👋</span>
+        <span class="signup-only">Crea il tuo account 🚀</span>
+      </div>
+      <div class="form-sub">
+        <span class="login-only">Accedi per continuare a fare offerte</span>
+        <span class="signup-only">Gratis, ci vogliono meno di 30 secondi</span>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="social-btns">
+        <button class="social-btn"><span class="social-icon">🇬</span> Continua con Google</button>
+        <button class="social-btn"><span class="social-icon">🍎</span> Continua con Apple</button>
+      </div>
+
+      <div class="divider"><span>oppure con email</span></div>
+
+      <!-- FORM -->
+      <form onsubmit="return false">
+
+        <!-- Username (signup only) -->
+        <div class="field signup-only">
+          <label class="field-label">Username</label>
+          <div class="field-input-wrap">
+            <span class="field-icon">@</span>
+            <input type="text" class="field-input with-icon" placeholder="il_tuo_username">
+          </div>
+          <div class="field-hint">Sarà il tuo nome pubblico sulla piattaforma</div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label class="field-label">Email</label>
+          <div class="field-input-wrap">
+            <span class="field-icon">✉️</span>
+            <input type="email" class="field-input with-icon" placeholder="nome@email.com">
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label class="field-label">Password</label>
+          <div class="field-input-wrap">
+            <span class="field-icon">🔒</span>
+            <input type="password" class="field-input with-icon" placeholder="••••••••" id="pwd" oninput="checkStrength(this.value)">
+            <button type="button" class="field-toggle" onclick="togglePwd(this)">👁</button>
+          </div>
+          <div class="pwd-strength signup-only">
+            <div class="pwd-bar" id="b1"></div>
+            <div class="pwd-bar" id="b2"></div>
+            <div class="pwd-bar" id="b3"></div>
+          </div>
+        </div>
+
+        <!-- Remember / Forgot (login only) -->
+        <div class="form-row login-only">
+          <label class="checkbox-label"><input type="checkbox"> Ricordami</label>
+          <span class="forgot-link">Password dimenticata?</span>
+        </div>
+
+        <div class="signup-only" style="margin-bottom:24px"></div>
+
+        <button class="btn-submit">
+          <span class="login-only">Accedi →</span>
+          <span class="signup-only">Crea account →</span>
+        </button>
+
+      </form>
+
+      <div class="form-footer">
+        <span class="login-only">Non hai un account? <a onclick="setMode('signup', document.querySelectorAll('.form-tab')[1])">Registrati gratis</a></span>
+        <span class="signup-only">Hai già un account? <a onclick="setMode('login', document.querySelectorAll('.form-tab')[0])">Accedi</a></span>
+      </div>
+
+      <div class="terms signup-only">
+        Registrandoti accetti i nostri <a>Termini e Condizioni</a> e la <a>Privacy Policy</a> conforme al GDPR.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function setMode(mode, btn){
+  document.body.className = 'mode-' + mode;
+  document.querySelectorAll('.form-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+function togglePwd(btn){
+  const input = btn.parentElement.querySelector('input');
+  if(input.type === 'password'){ input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁'; }
+}
+function checkStrength(val){
+  const b1=document.getElementById('b1'),b2=document.getElementById('b2'),b3=document.getElementById('b3');
+  [b1,b2,b3].forEach(b=>b.className='pwd-bar');
+  if(val.length>=1) b1.classList.add('active1');
+  if(val.length>=6) { b1.className='pwd-bar active2'; b2.className='pwd-bar active2'; }
+  if(val.length>=10 && /[0-9]/.test(val) && /[A-Z]/.test(val)){ b1.className='pwd-bar active3'; b2.className='pwd-bar active3'; b3.className='pwd-bar active3'; }
+}
+</script>
+</body>
+</html>
