@@ -567,7 +567,25 @@
     max-height: 26vh !important;
     min-height: 0 !important;
     flex: none !important;
+    overflow: hidden !important;
   }
+  /* La scritta "Stream video" non deve sovrapporsi */
+  .video-placeholder { padding: 8px !important; }
+  .video-label { font-size: 11px !important; }
+
+  /* ===== OVERLAY DEL VIDEO (anti-sovrapposizione) ===== */
+  /* Il box venditore "+Segui" è già presente nell'header in alto: su mobile lo nascondo
+     dentro il video per evitare che copra la scritta "Mux.com" */
+  .video-seller-overlay { display: none !important; }
+  /* I chip (spettatori/cuori/lotto) restano, ma ben distanziati in alto-destra del video */
+  .video-stats-overlay {
+    top: 10px !important; right: 10px !important;
+    left: auto !important; bottom: auto !important;
+    display: flex !important; flex-wrap: wrap !important;
+    justify-content: flex-end !important; gap: 6px !important;
+    max-width: 70% !important;
+  }
+  .stat-chip { font-size: 11px !important; padding: 4px 8px !important; }
 
   /* ===== BARRA ASTA compatta sotto il video ===== */
   .auction-bar {
